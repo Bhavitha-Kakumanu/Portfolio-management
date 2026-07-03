@@ -13,7 +13,7 @@ spring:
       # create-drop: recreates schema on every start (good for dev, NEVER use in prod)
       # validate:    checks schema matches entities (use in prod)
       # update:      adds missing columns (risky in prod, use Flyway/Liquibase instead)
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
