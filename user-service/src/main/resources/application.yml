@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/userdb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # create-drop: recreates schema on every start (good for dev, NEVER use in prod)
+      # validate:    checks schema matches entities (use in prod)
+      # update:      adds missing columns (risky in prod, use Flyway/Liquibase instead)
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8081
+
+jwt:
+  # CHANGE THIS in production — use a long random string, inject via env var
+  secret: "robinhood-super-secret-jwt-key-change-in-production-must-be-32-chars-min"
+  expiration-ms: 86400000   # 24 hours in milliseconds
+
+logging:
+  level:
+    com.robinhood: DEBUG
+    org.springframework.security: DEBUG
