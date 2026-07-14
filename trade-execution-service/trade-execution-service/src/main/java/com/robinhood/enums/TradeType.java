@@ -1,5 +1,6 @@
 package com.robinhood.enums;
 
-public class TradeType {
-
+public enum TradeType {
+BUY,
+SELL
 }
