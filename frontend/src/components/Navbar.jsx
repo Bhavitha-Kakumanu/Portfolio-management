@@ -24,6 +24,7 @@ export default function Navbar() {
               {user?.username || user?.email}
             </span>
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
+            <Link to="/watchlist" className="nav-link">Watchlist</Link>
             <button onClick={handleLogout} className="btn btn-outline btn-sm">
               Log out
             </button>

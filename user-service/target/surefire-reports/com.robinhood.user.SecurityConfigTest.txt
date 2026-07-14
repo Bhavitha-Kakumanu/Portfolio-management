@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: com.robinhood.user.SecurityConfigTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 7.388 s <<< FAILURE! -- in com.robinhood.user.SecurityConfigTest
+com.robinhood.user.SecurityConfigTest.loginEndpointIsAccessibleWithoutAuthentication -- Time elapsed: 0.910 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual:
+  403
+not to be equal to:
+  403
+
+	at com.robinhood.user.SecurityConfigTest.loginEndpointIsAccessibleWithoutAuthentication(SecurityConfigTest.java:29)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
