@@ -1,30 +1,45 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
+
+function getInitialUser() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return {
+      id: payload.sub,
+      email: payload.email,
+      role: payload.role,
+    };
+  } catch {
+    localStorage.removeItem('token');
+    return null;
+  }
+}
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem('token'));
-
-  useEffect(() => {
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        setUser({ id: payload.sub, email: payload.email, role: payload.role });
-      } catch {
-        logout();
-      }
-    }
-  }, [token]);
+  const [user, setUser] = useState(getInitialUser);
 
   function signIn(authResponse) {
     localStorage.setItem('token', authResponse.token);
     setToken(authResponse.token);
-    setUser({
-      id: authResponse.userId,
-      username: authResponse.username,
-      email: authResponse.email,
-    });
+    try {
+      const payload = JSON.parse(atob(authResponse.token.split('.')[1]));
+      setUser({
+        id: payload.sub,
+        email: payload.email,
+        role: payload.role,
+      });
+    } catch {
+      setUser({
+        id: authResponse.userId,
+        email: authResponse.email,
+      });
+    }
   }
 
   function logout() {
@@ -39,5 +54,3 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-export const useAuth = () => useContext(AuthContext);

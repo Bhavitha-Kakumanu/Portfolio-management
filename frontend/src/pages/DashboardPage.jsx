@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getMe } from '../api/users';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 function StatCard({ label, value, change, positive }) {
   return (
