@@ -54,11 +54,10 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- H2 in-memory DB for tests so we don't need Postgres running -->
+        <!-- H2 in-memory DB for tests and local running -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- JWT library for creating and verifying tokens -->

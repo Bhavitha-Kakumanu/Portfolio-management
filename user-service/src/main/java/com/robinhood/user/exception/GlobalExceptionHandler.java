@@ -1,5 +1,7 @@
 package com.robinhood.user.exception;
 
+import com.robinhood.user.exception.WatchlistAlreadyExistsException;
+import com.robinhood.user.exception.WatchlistNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -25,6 +27,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ProblemDetail handleUserNotFound(UserNotFoundException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(WatchlistNotFoundException.class)
+    public ProblemDetail handleWatchlistNotFound(WatchlistNotFoundException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(WatchlistAlreadyExistsException.class)
+    public ProblemDetail handleWatchlistAlreadyExists(WatchlistAlreadyExistsException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
     }
 
     // 400 Bad Request — triggered by @Valid failures on request DTOs

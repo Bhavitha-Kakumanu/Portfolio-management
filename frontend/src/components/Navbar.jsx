@@ -23,6 +23,22 @@ export default function Navbar() {
             <span className="navbar-user">
               {user?.username || user?.email}
             </span>
+            <Link to="/dashboard" className="nav-link">Dashboard</Link>
+            <Link to="/watchlist" className="nav-link">Watchlist</Link>
+            <button onClick={handleLogout} className="btn btn-outline btn-sm">
+              Log out
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="nav-link">Log in</Link>
+            <Link to="/register" className="btn btn-green btn-sm">Sign up</Link>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+}
 
                         <Link to="/dashboard" className="nav-link">
                             Dashboard

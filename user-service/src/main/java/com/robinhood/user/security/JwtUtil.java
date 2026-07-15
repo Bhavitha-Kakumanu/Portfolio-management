@@ -46,10 +46,10 @@ public class JwtUtil {
 
     public Claims parseToken(String token) {
         return Jwts.parser()
-            .verifyWith(signingKey)
+            .setSigningKey(signingKey)
             .build()
-            .parseSignedClaims(token)
-            .getPayload();
+            .parseClaimsJws(token)
+            .getBody();
     }
 
     public boolean isValid(String token) {
