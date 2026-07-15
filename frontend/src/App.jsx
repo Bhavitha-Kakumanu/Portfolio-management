@@ -1,3 +1,4 @@
+import MarketDataPage from './pages/MarketDataPage.jsx';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
@@ -35,6 +36,14 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
+                <Route
+                    path="/market"
+                    element={
+                        <ProtectedRoute>
+                            <MarketDataPage />
+                        </ProtectedRoute>
+                    }
+                />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
