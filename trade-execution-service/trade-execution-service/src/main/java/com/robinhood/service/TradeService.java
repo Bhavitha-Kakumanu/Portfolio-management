@@ -12,4 +12,5 @@ public interface TradeService {
     TradeResponse getTradeById(Long id);
 
     List<TradeResponse> getTradesByUserId(Long userId);
+    List<TradeResponse> getTradesByStockSymbol(String stockSymbol);
 }

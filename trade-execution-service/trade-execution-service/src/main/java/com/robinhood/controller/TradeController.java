@@ -40,7 +40,12 @@ public class TradeController {
 
         return ResponseEntity.ok(tradeService.getTradeById(id));
     }
-
+    @GetMapping("/stock/{stockSymbol}")
+    public List<TradeResponse> getTradesByStockSymbol(
+            @PathVariable String stockSymbol) {
+    
+        return tradeService.getTradesByStockSymbol(stockSymbol);
+    }
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<TradeResponse>> getTradesByUserId(
             @PathVariable Long userId) {

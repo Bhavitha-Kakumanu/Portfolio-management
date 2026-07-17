@@ -9,4 +9,6 @@ import com.robinhood.entity.Trade;
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 
     List<Trade> findByUserId(Long userId);
+
+    List<Trade> findByStockSymbolIgnoreCase(String stockSymbol);
 }
