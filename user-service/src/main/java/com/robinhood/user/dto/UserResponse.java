@@ -13,7 +13,11 @@ public record UserResponse(
     String firstName,
     String lastName,
     String role,
-    Instant createdAt
+    Instant createdAt,
+    Double cashBalance,
+    Double portfolioValue,
+    Double totalGainLoss,
+    Double investedAmount
 ) {
     // Factory method: converts the JPA entity to a safe response DTO
     public static UserResponse from(User user) {
@@ -24,7 +28,11 @@ public record UserResponse(
             user.getFirstName(),
             user.getLastName(),
             user.getRole().name(),
-            user.getCreatedAt()
+            user.getCreatedAt(),
+            user.getCashBalance(),
+            user.getPortfolioValue(),
+            user.getTotalGainLoss(),
+            Math.round((user.getPortfolioValue() - user.getCashBalance()) * 100.0) / 100.0
         );
     }
 }

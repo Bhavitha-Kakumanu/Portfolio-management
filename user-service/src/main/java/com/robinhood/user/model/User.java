@@ -54,6 +54,15 @@ public class User {
 
     private Instant updatedAt;
 
+    @Column(nullable = false)
+    private Double cashBalance = 0.0;
+
+    @Column(nullable = false)
+    private Double portfolioValue = 0.0;
+
+    @Column(nullable = false)
+    private Double totalGainLoss = 0.0;
+
     @PreUpdate
     public void onUpdate() {
         this.updatedAt = Instant.now();

@@ -18,6 +18,26 @@ export default function DashboardPage() {
     ? `${profile.firstName} ${profile.lastName}`
     : user?.username || 'Investor';
 
+  const formatCurrency = (val) => {
+    if (val === undefined || val === null) return '$0.00';
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+  };
+
+  const formatPercentage = (val) => {
+    if (val === undefined || val === null) return '0.00%';
+    return new Intl.NumberFormat('en-US', {
+      style: 'percent',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(val / 100);
+  };
+
+  const getGainLossPercentage = () => {
+    if (!profile || !profile.portfolioValue) return 0;
+    const costBasis = profile.portfolioValue - profile.totalGainLoss;
+    return costBasis > 0 ? (profile.totalGainLoss / costBasis) * 100 : 0;
+  };
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">
@@ -37,6 +57,36 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+
+      {profile && (
+        <div className="stats-row" style={{ margin: '24px 0' }}>
+          <div className="stat-card">
+            <span className="stat-label">Total Portfolio Value</span>
+            <span className="stat-value">{formatCurrency(profile.portfolioValue)}</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-label">Total Gain / Loss</span>
+            <span className={`stat-value ${profile.totalGainLoss >= 0 ? 'positive' : 'negative'}`}>
+              {profile.totalGainLoss >= 0 ? '+' : ''}{formatCurrency(profile.totalGainLoss)}
+            </span>
+            <span className={`stat-change ${profile.totalGainLoss >= 0 ? 'positive' : 'negative'}`}>
+              {profile.totalGainLoss >= 0 ? '▲' : '▼'} {formatPercentage(Math.abs(getGainLossPercentage()))}
+            </span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-label">Invested Amount</span>
+            <span className="stat-value">
+              {formatCurrency(profile.investedAmount !== undefined && profile.investedAmount !== null
+                ? profile.investedAmount
+                : (profile.portfolioValue - profile.cashBalance))}
+            </span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-label">Cash Available</span>
+            <span className="stat-value">{formatCurrency(profile.cashBalance)}</span>
+          </div>
+        </div>
+      )}
 
       {profile && (
         <div className="profile-section">

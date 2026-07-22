@@ -54,4 +54,10 @@ public class GlobalExceptionHandler {
         detail.setProperty("errors", errors);
         return detail;
     }
+
+    // 401 Unauthorized — bad login credentials
+    @ExceptionHandler(org.springframework.security.authentication.BadCredentialsException.class)
+    public ProblemDetail handleBadCredentials(org.springframework.security.authentication.BadCredentialsException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
 }

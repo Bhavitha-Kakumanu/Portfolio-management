@@ -55,7 +55,10 @@ docker-compose up -d
 `ash
 cd user-service
 mvn spring-boot:run
-`
+
+ash
+cd market-data-service
+mvn spring-boot:run`
 
 ### 3. Run the frontend
 

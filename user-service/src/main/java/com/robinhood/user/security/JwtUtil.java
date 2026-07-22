@@ -19,6 +19,7 @@ import java.util.UUID;
 //
 // The client sends: Authorization: Bearer <token>
 // We verify the signature — if valid, we trust the claims without hitting the DB.
+// NOTE: Uses jjwt 0.12.x API (parseSignedClaims / verifyWith / getPayload).
 @Component
 public class JwtUtil {
 
@@ -46,10 +47,10 @@ public class JwtUtil {
 
     public Claims parseToken(String token) {
         return Jwts.parser()
-            .setSigningKey(signingKey)
+            .verifyWith(signingKey)
             .build()
-            .parseClaimsJws(token)
-            .getBody();
+            .parseSignedClaims(token)
+            .getPayload();
     }
 
     public boolean isValid(String token) {
